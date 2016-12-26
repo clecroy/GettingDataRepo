@@ -2,26 +2,24 @@ require(dplyr)
 #Run_Analysis Script
 
 #Read in data and labels
-test_data <- read.table("C:/Users/Chase/Downloads/getdata%2Fprojectfiles%2FUCI HAR Dataset/UCI HAR Dataset/test/X_test.txt")
-test_labels <- read.table("C:/Users/Chase/Downloads/getdata%2Fprojectfiles%2FUCI HAR Dataset/UCI HAR Dataset/test/y_test.txt")
-test_subjects <- read.table("C:/Users/Chase/Downloads/getdata%2Fprojectfiles%2FUCI HAR Dataset/UCI HAR Dataset/test/subject_test.txt")
+test_data <- read.table("test/X_test.txt")
+test_labels <- read.table("test/y_test.txt")
+test_subjects <- read.table("test/subject_test.txt")
 
 test_data <- cbind(test_data, test_labels, test_subjects)
 
-train_data <- read.table("C:/Users/Chase/Downloads/getdata%2Fprojectfiles%2FUCI HAR Dataset/UCI HAR Dataset/train/X_train.txt")
-train_labels <- read.table("C:/Users/Chase/Downloads/getdata%2Fprojectfiles%2FUCI HAR Dataset/UCI HAR Dataset/train/y_train.txt")
-train_subjects <- read.table("C:/Users/Chase/Downloads/getdata%2Fprojectfiles%2FUCI HAR Dataset/UCI HAR Dataset/train/subject_train.txt")
+train_data <- read.table("train/X_train.txt")
+train_labels <- read.table("train/y_train.txt")
+train_subjects <- read.table("train/subject_train.txt")
 
 
 train_data <- cbind(train_data, train_labels, train_subjects)
-
-#Read in column names
-features <- read.table("C:/Users/Chase/Downloads/getdata%2Fprojectfiles%2FUCI HAR Dataset/UCI HAR Dataset/features.txt", stringsAsFactors = FALSE)
-features <- features[,2]
-
 #Merge data
 full_data <- rbind(test_data, train_data)
 
+#Read in column names
+features <- read.table("features.txt", stringsAsFactors = FALSE)
+features <- features[,2]
 
 #Set names
 names(full_data) <- c(features, "Key", "Subjects")
@@ -31,7 +29,7 @@ variable_index <- grep("mean|std",features)
 full_data <- full_data[,c(variable_index,562,563)]
 
 #Label activities
-activity_labels <- read.table("C:/Users/Chase/Downloads/getdata%2Fprojectfiles%2FUCI HAR Dataset/UCI HAR Dataset/activity_labels.txt")
+activity_labels <- read.table("Cactivity_labels.txt")
 names(activity_labels) <- c("Key", "Activity")
 
 #Merge labels and dataset
